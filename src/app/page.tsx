@@ -8,7 +8,8 @@ import { Footer } from "./components/Footer";
 export default function Home() {
   return (
     <div
-      className="min-h-screen bg-background text-foreground dark:bg-[#080808] dark:text-white"
+      // Added overflow-x-hidden and w-full here
+      className="min-h-screen w-full overflow-x-hidden bg-background text-foreground dark:bg-[#080808] dark:text-white"
       style={{ scrollBehavior: "smooth" }}
     >
       <Header />
