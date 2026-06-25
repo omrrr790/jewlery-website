@@ -28,71 +28,17 @@ const heroSlides = [
 ];
 
 // --- PRODUCT DATA WITH DUAL-IMAGE VIEW SUPPORT ---
-const newArrivals = [
-  {
-    id: 1,
-    name: "Lumina Diamond Pendant",
-    price: "$1,250",
-    image: "https://images.unsplash.com/photo-1599643478514-4a4e09b53f68?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600&q=80",
-    altImage: "https://images.unsplash.com/photo-1611085583191-a3b1a40ffd50?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600&q=80",
-    tag: "Just Added",
-  },
-  {
-    id: 2,
-    name: "Aurelia Gold Hoops",
-    price: "$850",
-    image: "https://images.unsplash.com/photo-1617265165427-90015078f246?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600&q=80",
-    altImage: "https://images.unsplash.com/photo-1630019852942-f89202989a59?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600&q=80",
-    tag: "Bestseller",
-  },
-  {
-    id: 3,
-    name: "Eternity Sapphire Ring",
-    price: "$3,400",
-    image: "https://images.unsplash.com/photo-1605100804763-247f67b2548e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600&q=80",
-    altImage: "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600&q=80",
-    tag: "Limited Edition",
-  },
-  {
-    id: 4,
-    name: "Solstice Tennis Bracelet",
-    price: "$5,200",
-    image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600&q=80",
-    altImage: "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600&q=80",
-    tag: null,
-  },
-  {
-    id: 5,
-    name: "Celeste Pearl Drop Earrings",
-    price: "$620",
-    image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600&q=80",
-    altImage: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600&q=80",
-    tag: null,
-  },
-  {
-    id: 6,
-    name: "Imperial Emerald Choker",
-    price: "$8,900",
-    image: "https://images.unsplash.com/photo-1599643477874-c5a8e0344d57?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600&q=80",
-    altImage: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600&q=80",
-    tag: "Exclusive",
-  },
-  {
-    id: 7,
-    name: "Nova Stackable Rings",
-    price: "$1,100",
-    image: "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600&q=80",
-    altImage: "https://images.unsplash.com/photo-1605100804763-247f67b2548e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600&q=80",
-    tag: "Just Added",
-  },
-  {
-    id: 8,
-    name: "Rose Gold Vow Band",
-    price: "$950",
-    image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600&q=80",
-    altImage: "https://images.unsplash.com/photo-1630019852942-f89202989a59?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600&q=80",
-    tag: null,
-  },
+export const newArrivals = [
+  { id: 1, name: "Lumina Diamond Pendant", price: "$1,250", image: "/409264684909214650.jpg", altImage: "/10836855347764467.jpg", tag: "Just Added" },
+  { id: 2, name: "Aurelia Gold Hoops", price: "$850", image: "/Gold Hoop Earrings Minimal Style.jpg", altImage: "https://images.unsplash.com/photo-1630019852942-f89202989a59?q=80&w=600", tag: "Bestseller" },
+  { id: 3, name: "Eternity Sapphire Ring", price: "$3,400", image: "/Unique Vine Engagement Ring _ Delicate Rose Gold Moissanite Ring.jpg", altImage: "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=600", tag: "Limited Edition" },
+  { id: 4, name: "Solstice Tennis Bracelet", price: "$5,200", image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=600", altImage: "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?q=80&w=600", tag: null },
+  { id: 5, name: "Celeste Pearl Drop Earrings", price: "$620", image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=600", altImage: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=600", tag: null },
+  { id: 6, name: "Imperial Emerald Choker", price: "$8,900", image: "/Elegant Ruby & Pearl Choker Set _ Sabyasachi Style Bridal Jewelry.jpg", altImage: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?q=80&w=600", tag: "Exclusive" },
+  { id: 7, name: "Nova Stackable Rings", price: "$1,100", image: "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=600", altImage: "/Rose Gold Twisted Diamond Ring.jpg", tag: "Just Added" },
+  { id: 8, name: "Rose Gold Vow Band", price: "$950", image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=600", altImage: "https://images.unsplash.com/photo-1630019852942-f89202989a59?q=80&w=600", tag: null },
+  { id: 9, name: "Serenity Amethyst Studs", price: "$450", image: "/Water Lily series 2_5 CT Light Purple Moissanite Teardrop Earrings, S925 Silver, Gift Boxed.jpg", altImage: "/Sterling Silver Amethyst Purple Oval Cz Stud Earrings.jpg", tag: "New" },
+  { id: 10, name: "Midnight Onyx Cuff", price: "$2,100", image: "/Schwarzer Onyx Sterling Silber Manschette Armband, Minimalistischer Breiter Band Armreif.jpg", altImage: "/Black Onyx Bracelet in 18kt Gold Over Sterling_ 7_.jpg", tag: "Limited Edition" }
 ];
 
 // --- STORY SHOWCASE TRENDS DATA ---

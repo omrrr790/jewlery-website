@@ -32,10 +32,15 @@ export default function ContactPage() {
       <Header />
 
       {/* 1. CINEMATIC HERO */}
-      <section className="relative w-full h-[60vh] min-h-[400px] flex items-center justify-center">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1599643477874-c5a8e0344d57?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920')] bg-cover bg-center">
-          <div className="absolute inset-0 bg-[#080808]/80" />
-        </div>
+      <section className="relative w-full h-[60vh] min-h-[400px] flex items-center justify-center overflow-hidden">
+        {/* Background Image */}
+        <img 
+          src="/Kalung Berlian Titanium Wanita Bahan Titanium Murni Berkualitas Tinggi, Tahan Karat dan Tidak Pudar_.jpg" 
+          alt="Contact The Atelier" 
+          className="absolute inset-0 w-full h-full object-cover object-center grayscale-[20%]"
+        />
+        {/* Dark Cinematic Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/50 via-[#080808]/80 to-[#080808]" />
         
         <div className="relative z-10 text-center px-6 scroll-animate opacity-0 translate-y-16 transition-all duration-1000 ease-out">
           <span className="text-[#C9A84C] tracking-[0.4em] uppercase text-[10px] font-semibold mb-4 block" style={{ fontFamily: "'Montserrat', sans-serif" }}>

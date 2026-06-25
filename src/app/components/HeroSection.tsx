@@ -120,52 +120,12 @@ const statistics = [
   { value: "100%", label: "Ethical Sourcing Guarantee", icon: ShieldCheck },
 ];
 
-const benefits = [
-  {
-    icon: Award,
-    title: "Uncompromising Heritage",
-    description: "Every cutting, resetting, and polishing process follows century-old European master bench jeweler guidelines, maximizing optical refraction.",
-  },
-  {
-    icon: Sliders,
-    title: "The Concierge Atelier",
-    description: "Collaborate raw-sketch to final-polish with custom 3D parametric previews and live diamond selectors assigned specifically to your custom allocation.",
-  },
-  {
-    icon: Feather,
-    title: "Traceable Matrix Ecosystem",
-    description: "Our pieces leverage blockchain ledgers tracking your gem's secure custody journey directly from the initial vetted structural mine site.",
-  },
-];
 
-const timelineSteps = [
-  { phase: "Phase I", title: "Gemological Acquisition", desc: "Our specialists source rough diamonds adhering to GIA standard parameters and stringently select the top 1% based on internal fire profiles." },
-  { phase: "Phase II", title: "Parametric Design Modeling", desc: "Using hyper-precise CAD rendering, light vector equations are applied to balance weight distribution against optimal structural dispersion." },
-  { phase: "Phase III", title: "Micro-Setting Construction", desc: "Master artisans microscopically place each accent pavé setting using pneumatic surgical tools under high-magnification fields." },
-  { phase: "Phase IV", title: "The Sovereign Inspection", desc: "A triple-stage metallurgical certification lab verifies density, prong security, and dynamic luster before issuing secure provenance passports." },
-];
 
-const comparisons = [
-  { feature: "Bespoke Micro-Pavé Calibration", luxury: "Hand-set under 40x magnification microscopes", standard: "Assembled using uniform machine casting moulds" },
-  { feature: "Alloy Purity Formulation", luxury: "Proprietary high-density scratch-resistant 18K gold", standard: "Standard commercial structural gold amalgams" },
-  { feature: "Provenance Assurance", luxury: "Full blockchain digital trace & certified GIA ledger", standard: "Paper invoices lacking transparent custody trails" },
-  { feature: "Post-Acquisition Concierge", luxury: "Lifetime complimentary annual resetting & polishing", standard: "Limited 12-month structural warranty coverage" },
-];
 
-const testimonials = [
-  {
-    quote: "The custom eternity band exceeded all preconceptions of light dispersion. The level of design feedback during the CAD modeling stage rivaled a high-end architectural firm commission.",
-    author: "Elena Rostova",
-    role: "Collector & Fine Art Curator",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
-  },
-  {
-    quote: "Investing in their Traceable Matrix line provides total confidence. Knowing the exact coordinate origins of our emerald configurations matches our core principles perfectly.",
-    author: "Marcus Vance",
-    role: "Principal Architect, Vance Studio",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80"
-  }
-];
+
+
+
 
 // ==========================================
 // SUB-COMPONENTS & UTILITIES
@@ -258,7 +218,7 @@ export function HeroSection() {
   }, [current, goTo]);
 
   useEffect(() => {
-    const timer = setInterval(next, 8000);
+    const timer = setInterval(next, 2000);
     return () => clearInterval(timer);
   }, [next]);
 

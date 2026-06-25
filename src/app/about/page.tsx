@@ -53,32 +53,41 @@ export default function AboutPage() {
     <main className="w-full bg-[#080808] text-white selection:bg-[#C9A84C] selection:text-black overflow-hidden">
       <Header />
 
-      {/* 1. CINEMATIC PARALLAX HERO */}
-      <section className="relative w-full h-[90vh] min-h-[650px] flex items-center justify-center">
-        {/* Parallax Background */}
-        <div 
-          className="absolute inset-0 bg-fixed bg-center bg-cover" 
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1599643477874-c5a8e0344d57?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920')" }}
-        >
-          <div className="absolute inset-0 bg-[#080808]/75" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent" />
+      {/* 1. EDITORIAL SPLIT-SCREEN HERO */}
+      <section className="relative w-full min-h-[85vh] flex flex-col md:flex-row bg-[#080808]">
+        
+        {/* Left: Content Column */}
+        <div className="w-full md:w-1/2 flex flex-col justify-center items-center md:items-start px-8 sm:px-16 lg:px-24 py-16 md:py-0">
+          <div className="max-w-lg space-y-8 scroll-animate opacity-0 translate-y-16 transition-all duration-1000 ease-out">
+            <span className="text-[#C9A84C] tracking-[0.4em] uppercase text-[10px] font-semibold flex items-center gap-4">
+              <div className="h-[1px] w-8 bg-[#C9A84C]" />
+              The Maison
+            </span>
+            
+            <h1 className="text-white leading-[1.1]" style={{ fontFamily: "'Cinzel', serif", fontSize: "clamp(3rem, 6vw, 5rem)" }}>
+              Our Legacy
+            </h1>
+            
+            <p className="text-white/70 font-light leading-relaxed tracking-wide text-lg" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+              Born from a devotion to structural beauty and raw elemental power. We do not just create jewelry; we architect modern heirlooms for those who define their own eras.
+            </p>
+
+            <button className="text-[#C9A84C] border border-[#C9A84C] px-8 py-3 text-[10px] uppercase tracking-[0.2em] hover:bg-[#C9A84C] hover:text-black transition-all duration-500">
+              Discover Our Story
+            </button>
+          </div>
         </div>
 
-        <div className="relative z-10 flex flex-col items-center text-center px-6 mt-16 scroll-animate opacity-0 translate-y-16 transition-all duration-1000 ease-out">
-          <span className="text-[#C9A84C] tracking-[0.4em] uppercase text-[10px] font-semibold mb-6 flex items-center gap-4" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-            <div className="h-[1px] w-8 bg-[#C9A84C]" />
-            The Maison
-            <div className="h-[1px] w-8 bg-[#C9A84C]" />
-          </span>
-          <h1 className="text-white leading-[1.1] mb-6" style={{ fontFamily: "'Cinzel', serif", fontSize: "clamp(3.5rem, 8vw, 7rem)" }}>
-            Our Legacy
-          </h1>
-          <p className="text-white/70 max-w-2xl mx-auto font-light leading-relaxed tracking-wide" style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "1rem" }}>
-            Born from a devotion to structural beauty and raw elemental power. We do not just create jewelry; we architect modern heirlooms for those who define their own eras.
-          </p>
+        {/* Right: Editorial Image Column */}
+        <div className="w-full md:w-1/2 relative overflow-hidden h-[45vh] md:h-auto md:min-h-[85vh]">
+          <div className="absolute inset-0 bg-[#080808]/20 z-10" /> 
+          <img 
+            src="/104427285106522202.jpg" 
+            alt="Luxury Atelier" 
+            className="w-full h-full object-cover grayscale-[20%] transition-transform duration-[3000ms] hover:scale-105"
+          />
         </div>
       </section>
-
 
       {/* 2. THE VISION / ASYMMETRIC STORYTELLING */}
       <section className="w-full py-24 sm:py-32 relative z-10 bg-[#080808]">
@@ -114,10 +123,10 @@ export default function AboutPage() {
           </div>
 
           {/* Staggered Image Grid */}
-          <div className="lg:col-span-7 relative h-[600px] scroll-animate opacity-0 translate-y-16 transition-all duration-[1200ms] ease-out delay-[200ms]">
+          <div className="lg:col-span-7 relative h-[450px] sm:h-[550px] md:h-[600px] scroll-animate opacity-0 translate-y-16 transition-all duration-[1200ms] ease-out delay-[200ms]">
             <div className="absolute top-0 right-0 w-[80%] h-[75%] border border-white/10 bg-[#0c0c0c] overflow-hidden group">
               <img 
-                src="https://images.unsplash.com/photo-1611085583191-a3b1a40ffd50?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800&q=80" 
+                src="/Golden Blossom Bridal Jewelry Set.jpg" 
                 alt="Jewelry Design" 
                 className="w-full h-full object-cover transform duration-[2000ms] group-hover:scale-105 opacity-80"
               />
@@ -129,9 +138,9 @@ export default function AboutPage() {
                 className="w-full h-full object-cover transform duration-[2000ms] group-hover:scale-110"
               />
             </div>
-            {/* Minimalist Accent Box */}
+            {/* Minimalist Accent Boxes */}
             <div className="absolute top-[10%] left-[5%] w-20 h-20 border-t border-l border-[#C9A84C]/50 z-20 pointer-events-none" />
-            <div className="absolute bottom-[10%] right-[-5%] w-20 h-20 border-b border-r border-[#C9A84C]/50 z-20 pointer-events-none" />
+            <div className="absolute bottom-[10%] right-0 lg:right-[-5%] w-20 h-20 border-b border-r border-[#C9A84C]/50 z-20 pointer-events-none" />
           </div>
         </div>
       </section>
@@ -174,15 +183,15 @@ export default function AboutPage() {
       <section className="w-full py-32 relative overflow-hidden bg-[#080808]">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           
-          <div className="relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden group scroll-animate opacity-0 translate-y-16 transition-all duration-1000 ease-out">
+          <div className="relative w-full min-h-[480px] sm:min-h-[400px] md:min-h-0 md:aspect-[21/9] overflow-hidden group scroll-animate opacity-0 translate-y-16 transition-all duration-1000 ease-out">
             <img 
-              src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920&q=80" 
+              src="/Golden Blossom Pendant Necklace.jpg" 
               alt="Inside the Atelier" 
               className="w-full h-full object-cover transform duration-[3000ms] ease-out group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-b md:bg-gradient-to-r from-black/95 via-black/70 md:via-black/40 to-black/30 md:to-transparent" />
             
-            <div className="absolute inset-0 p-8 sm:p-16 flex flex-col justify-center max-w-xl z-10">
+            <div className="absolute inset-0 p-6 sm:p-16 flex flex-col justify-center max-w-xl z-10">
               <span className="text-[#C9A84C] tracking-[0.3em] uppercase text-[10px] font-semibold mb-4" style={{ fontFamily: "'Montserrat', sans-serif" }}>
                 Behind the Curtains
               </span>
