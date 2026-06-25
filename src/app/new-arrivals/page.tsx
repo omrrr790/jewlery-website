@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Heart, ArrowRight, Sparkles, Layers, Eye } from "lucide-react";
@@ -28,7 +28,8 @@ const heroSlides = [
 ];
 
 // --- PRODUCT DATA WITH DUAL-IMAGE VIEW SUPPORT ---
-export const newArrivals = [
+// REMOVED 'export' HERE TO FIX THE NEXT.JS BUILD ERROR
+const newArrivals = [
   { id: 1, name: "Lumina Diamond Pendant", price: "$1,250", image: "/409264684909214650.jpg", altImage: "/10836855347764467.jpg", tag: "Just Added" },
   { id: 2, name: "Aurelia Gold Hoops", price: "$850", image: "/Gold Hoop Earrings Minimal Style.jpg", altImage: "https://images.unsplash.com/photo-1630019852942-f89202989a59?q=80&w=600", tag: "Bestseller" },
   { id: 3, name: "Eternity Sapphire Ring", price: "$3,400", image: "/Unique Vine Engagement Ring _ Delicate Rose Gold Moissanite Ring.jpg", altImage: "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=600", tag: "Limited Edition" },
@@ -46,18 +47,18 @@ const dynamicTrends = [
   {
     title: "The Fine Ear Stack",
     concept: "Curated Layers",
-    image: "https://images.unsplash.com/photo-1630019852942-f89202989a59?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800&q=80",
+    image: "/3518505955215341.jpg",
     action: "Explore Curated Stacks"
   },
   {
     title: "Chained Minimalism",
     concept: "Effortless Pendants",
-    image: "https://images.unsplash.com/photo-1611085583191-a3b1a40ffd50?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800&q=80",
+    image: "/Instagram.jpg",
     action: "View Delicate Layers"
   }
 ];
 
-export default function NewArrivalsContent() {
+export default function NewArrivalsPage() {
   const [hoveredProduct, setHoveredProduct] = useState<number | null>(null);
   const [heroIndex, setHeroIndex] = useState(0);
 
@@ -142,7 +143,6 @@ export default function NewArrivalsContent() {
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C9A84C]/30 to-transparent z-20" />
       </section>
 
-
       {/* 2. EDITORIAL BRAND NARRATIVE SECTION */}
       <section className="w-full bg-[#0c0c0c] border-b border-white/5 py-24 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#C9A84C]/5 rounded-full blur-[120px] pointer-events-none" />
@@ -191,7 +191,6 @@ export default function NewArrivalsContent() {
         </div>
       </section>
 
-
       {/* 3. CORE PRODUCT GRID (HIGH-END UNIQUE CARD REWRITE) */}
       <section id="grid-section" className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-24">
         {/* Custom Header Layout */}
@@ -215,7 +214,7 @@ export default function NewArrivalsContent() {
               onMouseEnter={() => setHoveredProduct(product.id)}
               onMouseLeave={() => setHoveredProduct(null)}
             >
-              {/* Unique Structural Outline Border Frame - Expands and highlights dynamically on card hover */}
+              {/* Unique Structural Outline Border Frame */}
               <div className="absolute -inset-3 border border-transparent group-hover:border-[#C9A84C]/15 transition-all duration-500 pointer-events-none z-0" />
 
               {/* Image Container with Dynamic Multi-Angle Frame Shift */}
@@ -246,7 +245,7 @@ export default function NewArrivalsContent() {
                   <img
                     src={product.altImage}
                     alt={`${product.name} Alternate View`}
-                    className={`w-full h-full object-cover absolute inset-0 transition-all duration-1000 scale-102 ${
+                    className={`w-full h-full object-cover absolute inset-0 transition-all duration-1000 ${
                       hoveredProduct === product.id ? "opacity-100 scale-105" : "opacity-0"
                     }`}
                   />
@@ -290,7 +289,6 @@ export default function NewArrivalsContent() {
           </button>
         </div>
       </section>
-
 
       {/* 4. CURATED TRENDS SECTION */}
       <section className="w-full bg-[#050505] border-t border-white/5 py-24">
