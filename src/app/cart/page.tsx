@@ -10,7 +10,7 @@ const initialCart = [
   {
     id: 1,
     name: "Lumina Diamond Pendant",
-    price: 1250,
+    price: 1000,
     formattedPrice: "$1,250",
     image: "https://images.unsplash.com/photo-1599643478524-fb66f70a00d8?q=80&w=600",
     variant: "18k White Gold",
