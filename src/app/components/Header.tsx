@@ -41,16 +41,14 @@ export function Header() {
           <div className="flex items-center justify-between">
             {/* Logo - Retains sizing but uses brightness filter to guarantee crisp visibility */}
             <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 transition-transform duration-300 hover:scale-105">
-             
               <Image
                 src={logoSrc}
                 alt="Elegance by Rimsha"
                 className="w-full h-full object-contain brightness-110 contrast-105"
                 priority
               />
-             
             </div>
-             
+              
             {/* Desktop Nav - Cleaned up variable fallbacks to ensure pure white text */}
             <nav className="hidden lg:flex items-center gap-8">
               {navLinks.map((link) => (
@@ -81,26 +79,28 @@ export function Header() {
                   </span>
                 )}
               </button>
-              <button className="relative text-white/80 hover:text-[#C9A84C] transition-colors duration-300 p-1">
+              {/* Wrapped Shopping Bag with Next.js Link pointing to /cart */}
+              <Link href="/cart" className="relative text-white/80 hover:text-[#C9A84C] transition-colors duration-300 p-1">
                 <ShoppingBag size={19} />
                 {cartCount > 0 && (
                   <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#C9A84C] text-black text-[9px] font-extrabold rounded-full flex items-center justify-center shadow-sm">
                     {cartCount}
                   </span>
                 )}
-              </button>
+              </Link>
             </div>
 
             {/* Mobile Actions */}
             <div className="flex lg:hidden items-center gap-4">
-              <button className="relative text-white/80 hover:text-[#C9A84C] transition-colors duration-300 p-1">
+              {/* Wrapped Mobile Shopping Bag with Next.js Link pointing to /cart */}
+              <Link href="/cart" className="relative text-white/80 hover:text-[#C9A84C] transition-colors duration-300 p-1">
                 <ShoppingBag size={21} />
                 {cartCount > 0 && (
                   <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#C9A84C] text-black text-[9px] font-extrabold rounded-full flex items-center justify-center">
                     {cartCount}
                   </span>
                 )}
-              </button>
+              </Link>
               <button
                 onClick={() => setMobileOpen(true)}
                 className="text-white/80 hover:text-[#C9A84C] transition-colors duration-300 p-1"
