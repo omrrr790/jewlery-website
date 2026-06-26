@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Heart, ArrowRight, Sparkles, Layers, Eye } from "lucide-react";
+import { useCart } from "../../context/CartContext";
 
 // --- DUMMY DATA FOR THE AUTOMATIC HERO SCROLLER ---
 const heroSlides = [
@@ -28,18 +30,17 @@ const heroSlides = [
 ];
 
 // --- PRODUCT DATA WITH DUAL-IMAGE VIEW SUPPORT ---
-// REMOVED 'export' HERE TO FIX THE NEXT.JS BUILD ERROR
 const newArrivals = [
-  { id: 1, name: "Lumina Diamond Pendant", price: "$1,250", image: "/409264684909214650.jpg", altImage: "/10836855347764467.jpg", tag: "Just Added" },
-  { id: 2, name: "Aurelia Gold Hoops", price: "$850", image: "/Gold Hoop Earrings Minimal Style.jpg", altImage: "https://images.unsplash.com/photo-1630019852942-f89202989a59?q=80&w=600", tag: "Bestseller" },
-  { id: 3, name: "Eternity Sapphire Ring", price: "$3,400", image: "/Unique Vine Engagement Ring _ Delicate Rose Gold Moissanite Ring.jpg", altImage: "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=600", tag: "Limited Edition" },
-  { id: 4, name: "Solstice Tennis Bracelet", price: "$5,200", image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=600", altImage: "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?q=80&w=600", tag: null },
-  { id: 5, name: "Celeste Pearl Drop Earrings", price: "$620", image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=600", altImage: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=600", tag: null },
-  { id: 6, name: "Imperial Emerald Choker", price: "$8,900", image: "/Elegant Ruby & Pearl Choker Set _ Sabyasachi Style Bridal Jewelry.jpg", altImage: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?q=80&w=600", tag: "Exclusive" },
-  { id: 7, name: "Nova Stackable Rings", price: "$1,100", image: "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=600", altImage: "/Rose Gold Twisted Diamond Ring.jpg", tag: "Just Added" },
-  { id: 8, name: "Rose Gold Vow Band", price: "$950", image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=600", altImage: "https://images.unsplash.com/photo-1630019852942-f89202989a59?q=80&w=600", tag: null },
-  { id: 9, name: "Serenity Amethyst Studs", price: "$450", image: "/Water Lily series 2_5 CT Light Purple Moissanite Teardrop Earrings, S925 Silver, Gift Boxed.jpg", altImage: "/Sterling Silver Amethyst Purple Oval Cz Stud Earrings.jpg", tag: "New" },
-  { id: 10, name: "Midnight Onyx Cuff", price: "$2,100", image: "/Schwarzer Onyx Sterling Silber Manschette Armband, Minimalistischer Breiter Band Armreif.jpg", altImage: "/Black Onyx Bracelet in 18kt Gold Over Sterling_ 7_.jpg", tag: "Limited Edition" }
+  { id: 1, name: "Lumina Diamond Pendant", price: 1250, image: "/409264684909214650.jpg", altImage: "/10836855347764467.jpg", tag: "Just Added", category: "Pendants" },
+  { id: 2, name: "Aurelia Gold Hoops", price: 850, image: "/Gold Hoop Earrings Minimal Style.jpg", altImage: "https://images.unsplash.com/photo-1630019852942-f89202989a59?q=80&w=600", tag: "Bestseller", category: "Earrings" },
+  { id: 3, name: "Eternity Sapphire Ring", price: 3400, image: "/Unique Vine Engagement Ring _ Delicate Rose Gold Moissanite Ring.jpg", altImage: "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=600", tag: "Limited Edition", category: "Rings" },
+  { id: 4, name: "Solstice Tennis Bracelet", price: 5200, image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=600", altImage: "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?q=80&w=600", tag: null, category: "Bracelets" },
+  { id: 5, name: "Celeste Pearl Drop Earrings", price: 620, image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=600", altImage: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=600", tag: null, category: "Earrings" },
+  { id: 6, name: "Imperial Emerald Choker", price: 8900, image: "/Elegant Ruby & Pearl Choker Set _ Sabyasachi Style Bridal Jewelry.jpg", altImage: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?q=80&w=600", tag: "Exclusive", category: "Necklaces" },
+  { id: 7, name: "Nova Stackable Rings", price: 1100, image: "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=600", altImage: "/Rose Gold Twisted Diamond Ring.jpg", tag: "Just Added", category: "Rings" },
+  { id: 8, name: "Rose Gold Vow Band", price: 950, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=600", altImage: "https://images.unsplash.com/photo-1630019852942-f89202989a59?q=80&w=600", tag: null, category: "Rings" },
+  { id: 9, name: "Serenity Amethyst Studs", price: 450, image: "/Water Lily series 2_5 CT Light Purple Moissanite Teardrop Earrings, S925 Silver, Gift Boxed.jpg", altImage: "/Sterling Silver Amethyst Purple Oval Cz Stud Earrings.jpg", tag: "New", category: "Earrings" },
+  { id: 10, name: "Midnight Onyx Cuff", price: 2100, image: "/Schwarzer Onyx Sterling Silber Manschette Armband, Minimalistischer Breiter Band Armreif.jpg", altImage: "/Black Onyx Bracelet in 18kt Gold Over Sterling_ 7_.jpg", tag: "Limited Edition", category: "Bracelets" }
 ];
 
 // --- STORY SHOWCASE TRENDS DATA ---
@@ -59,8 +60,13 @@ const dynamicTrends = [
 ];
 
 export default function NewArrivalsPage() {
+  const router = useRouter();
+  const { addToCart } = useCart(); 
   const [hoveredProduct, setHoveredProduct] = useState<number | null>(null);
   const [heroIndex, setHeroIndex] = useState(0);
+  
+  // Tracks which specific product was just added to show a custom success notification
+  const [addedProductId, setAddedProductId] = useState<number | null>(null);
 
   // Auto-scroll loop for Hero Section (every 5.5 seconds)
   useEffect(() => {
@@ -69,6 +75,27 @@ export default function NewArrivalsPage() {
     }, 5500);
     return () => clearInterval(timer);
   }, []);
+
+  const handleAcquireItem = (product: any) => {
+    // Transform incoming structural data format to match your context expectation
+    const cartProduct = {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      images: [product.image, product.altImage],
+      category: product.category,
+      quantity: 1
+    };
+
+    // Add to context without routing away
+    addToCart(cartProduct as any); 
+
+    // Show visual confirmation on the button for 2 seconds
+    setAddedProductId(product.id);
+    setTimeout(() => {
+      setAddedProductId(null);
+    }, 2000);
+  };
 
   return (
     <main className="w-full bg-background dark:bg-[#080808] text-foreground dark:text-white selection:bg-[#C9A84C] selection:text-black overflow-x-hidden">
@@ -191,7 +218,7 @@ export default function NewArrivalsPage() {
         </div>
       </section>
 
-      {/* 3. CORE PRODUCT GRID (HIGH-END UNIQUE CARD REWRITE) */}
+      {/* 3. CORE PRODUCT GRID */}
       <section id="grid-section" className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-24">
         {/* Custom Header Layout */}
         <div className="flex flex-col sm:flex-row justify-between items-baseline mb-16 pb-6 border-b border-white/10" style={{ fontFamily: "'Montserrat', sans-serif" }}>
@@ -253,8 +280,17 @@ export default function NewArrivalsPage() {
 
                 {/* Fine Luxury Interactive Quick Action Tray */}
                 <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/90 via-black/40 to-transparent translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 flex gap-2">
-                  <button className="flex-1 py-2.5 bg-[#C9A84C] text-black tracking-[0.15em] uppercase text-[10px] font-bold hover:bg-[#E8C97E] transition-colors" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                    Acquire Item
+                  <button 
+                    onClick={() => handleAcquireItem(product)}
+                    disabled={addedProductId === product.id}
+                    className={`flex-1 py-2.5 tracking-[0.15em] uppercase text-[10px] font-bold transition-all duration-300 ${
+                      addedProductId === product.id 
+                        ? "bg-[#1C1C1C] text-[#C9A84C] border border-[#C9A84C]/40 cursor-default" 
+                        : "bg-[#C9A84C] text-black hover:bg-[#E8C97E]"
+                    }`}
+                    style={{ fontFamily: "'Montserrat', sans-serif" }}
+                  >
+                    {addedProductId === product.id ? "Added to Cart ✓" : "Add to Cart"}
                   </button>
                   <button className="px-3 bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm transition-colors flex items-center justify-center" aria-label="Quick View Details">
                     <Eye size={14} />
@@ -274,7 +310,7 @@ export default function NewArrivalsPage() {
                   <div className="w-6 h-[1px] bg-white/10 mx-auto my-2 group-hover:w-16 group-hover:bg-[#C9A84C]/50 transition-all duration-500" />
                 </div>
                 <p className="text-[#C9A84C] font-medium tracking-wide" style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.9rem" }}>
-                  {product.price}
+                  ${product.price.toLocaleString()}
                 </p>
               </div>
             </div>

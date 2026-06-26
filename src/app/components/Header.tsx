@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { Search, User, Heart, ShoppingBag, Menu, X } from "lucide-react";
 import logoWhite from "../../imports/logo.png";
 import Link from "next/link";
+import { useCart } from "../../context/CartContext";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -17,8 +18,18 @@ const navLinks = [
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [cartCount] = useState(2);
-  const [wishlistCount] = useState(3);
+  
+  // Connect to your real CartContext
+  // Bypass the strict type check and grab the cart array 
+  // (checking common names just in case your context uses 'cartItems' instead)
+  const { cart, cartItems, items } = useCart() as any;
+  const activeCart = cart || cartItems || items || [];
+  
+  // Safely calculate the actual number of items in the cart
+  const realCartCount = activeCart.reduce((total: number, item: any) => total + (item.quantity || 1), 0);
+  
+  // Kept as a placeholder until you build a WishlistContext
+  const [wishlistCount] = useState(0); 
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -39,7 +50,7 @@ export function Header() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            {/* Logo - Retains sizing but uses brightness filter to guarantee crisp visibility */}
+            {/* Logo */}
             <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 transition-transform duration-300 hover:scale-105">
               <Image
                 src={logoSrc}
@@ -49,7 +60,7 @@ export function Header() {
               />
             </div>
               
-            {/* Desktop Nav - Cleaned up variable fallbacks to ensure pure white text */}
+            {/* Desktop Nav */}
             <nav className="hidden lg:flex items-center gap-8">
               {navLinks.map((link) => (
                 <a
@@ -79,12 +90,13 @@ export function Header() {
                   </span>
                 )}
               </button>
-              {/* Wrapped Shopping Bag with Next.js Link pointing to /cart */}
+              
+              {/* Desktop Real Shopping Bag Counter */}
               <Link href="/cart" className="relative text-white/80 hover:text-[#C9A84C] transition-colors duration-300 p-1">
                 <ShoppingBag size={19} />
-                {cartCount > 0 && (
+                {realCartCount > 0 && (
                   <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#C9A84C] text-black text-[9px] font-extrabold rounded-full flex items-center justify-center shadow-sm">
-                    {cartCount}
+                    {realCartCount}
                   </span>
                 )}
               </Link>
@@ -92,12 +104,12 @@ export function Header() {
 
             {/* Mobile Actions */}
             <div className="flex lg:hidden items-center gap-4">
-              {/* Wrapped Mobile Shopping Bag with Next.js Link pointing to /cart */}
+              {/* Mobile Real Shopping Bag Counter */}
               <Link href="/cart" className="relative text-white/80 hover:text-[#C9A84C] transition-colors duration-300 p-1">
                 <ShoppingBag size={21} />
-                {cartCount > 0 && (
+                {realCartCount > 0 && (
                   <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#C9A84C] text-black text-[9px] font-extrabold rounded-full flex items-center justify-center">
-                    {cartCount}
+                    {realCartCount}
                   </span>
                 )}
               </Link>

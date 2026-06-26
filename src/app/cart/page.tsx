@@ -1,55 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Trash2, Plus, Minus, ArrowRight, ShieldCheck, Lock } from "lucide-react";
-
-// --- DUMMY DATA FOR THE CART ---
-const initialCart = [
-  {
-    id: 1,
-    name: "Lumina Diamond Pendant",
-    price: 1000,
-    formattedPrice: "$1,250",
-    image: "https://images.unsplash.com/photo-1599643478524-fb66f70a00d8?q=80&w=600",
-    variant: "18k White Gold",
-    quantity: 1,
-  },
-  {
-    id: 6,
-    name: "Imperial Emerald Choker",
-    price: 8900,
-    formattedPrice: "$8,900",
-    image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?q=80&w=600",
-    variant: "Platinum & Colombian Emerald",
-    quantity: 1,
-  }
-];
+import { useCart } from "../../context/CartContext";
 
 export default function CartPage() {
-  const [cartItems, setCartItems] = useState(initialCart);
-
-  // --- CART LOGIC ---
-  const updateQuantity = (id: number, delta: number) => {
-    setCartItems(prev => 
-      prev.map(item => {
-        if (item.id === id) {
-          const newQty = Math.max(1, item.quantity + delta);
-          return { ...item, quantity: newQty };
-        }
-        return item;
-      })
-    );
-  };
-
-  const removeItem = (id: number) => {
-    setCartItems(prev => prev.filter(item => item.id !== id));
-  };
-
-  const subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-  const shipping = subtotal > 0 ? 0 : 0; // Complimentary shipping for luxury brand
-  const total = subtotal + shipping;
+  const { cartItems, updateQuantity, removeFromCart, subtotal, total, itemCount } = useCart();
 
   return (
     <main className="w-full bg-background dark:bg-[#080808] text-foreground dark:text-white selection:bg-[#C9A84C] selection:text-black overflow-x-hidden min-h-screen flex flex-col">
@@ -76,7 +33,7 @@ export default function CartPage() {
             className="text-white/60 text-xs tracking-widest uppercase"
             style={{ fontFamily: "'Montserrat', sans-serif" }}
           >
-            {cartItems.length} {cartItems.length === 1 ? 'Masterwork' : 'Masterworks'} Secured
+            {itemCount} {itemCount === 1 ? 'Masterwork' : 'Masterworks'} Secured
           </p>
         </div>
       </section>
@@ -100,7 +57,7 @@ export default function CartPage() {
                   {/* Item Image */}
                   <div className="w-full sm:w-40 aspect-[4/5] overflow-hidden bg-[#121212] flex-shrink-0">
                     <img 
-                      src={item.image} 
+                      src={item.images[0]} 
                       alt={item.name} 
                       className="w-full h-full object-cover transform duration-700 group-hover:scale-105"
                     />
@@ -114,11 +71,12 @@ export default function CartPage() {
                           {item.name}
                         </h3>
                         <p className="text-white/50 text-xs tracking-wider uppercase mb-4" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                          {item.variant}
+                          {/* Fallback to category for variant text */}
+                          {item.category}
                         </p>
                       </div>
                       <button 
-                        onClick={() => removeItem(item.id)}
+                        onClick={() => removeFromCart(item.id)}
                         className="text-white/30 hover:text-red-400 transition-colors"
                         aria-label="Remove item"
                       >

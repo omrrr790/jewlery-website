@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import '../styles/index.css'
 import { ThemeProvider } from './components/ThemeProvider'
+import { CartProvider } from "../context/CartContext"
 
 export const metadata: Metadata = {
   title: 'Elegance',
@@ -10,9 +11,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      {/* Added overflow-x-hidden here to prevent horizontal scroll */}
       <body className="overflow-x-hidden w-full">
-        <ThemeProvider>{children}</ThemeProvider>
+        {/* Nesting Providers: CartProvider wraps everything inside ThemeProvider */}
+        <ThemeProvider>
+          <CartProvider>
+            {children}
+          </CartProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

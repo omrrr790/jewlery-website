@@ -1,15 +1,18 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Heart, Eye, ShoppingBag, Star } from "lucide-react";
+import { Heart, Eye, ShoppingBag, Star, Check } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { useCart } from "../../context/CartContext";
+import { Product } from "../../types/cart";
 
-const products = [
+const products: Product[] = [
   {
     id: 1,
     name: "Sparkling Diamond Pendant",
     category: "Necklaces",
-    price: "From $1,299",
+    price: 1299,
+    formattedPrice: "From $1,299",
     rating: 5,
     reviews: 128,
     badge: "Bestseller",
@@ -22,7 +25,8 @@ const products = [
     id: 2,
     name: "18K Gold Chain Necklace",
     category: "Necklaces",
-    price: "From $899",
+    price: 899,
+    formattedPrice: "From $899",
     rating: 5,
     reviews: 94,
     badge: "New",
@@ -35,7 +39,8 @@ const products = [
     id: 3,
     name: "Diamond Solitaire Ring",
     category: "Rings",
-    price: "From $2,499",
+    price: 2499,
+    formattedPrice: "From $2,499",
     rating: 5,
     reviews: 215,
     badge: "Bestseller",
@@ -48,7 +53,8 @@ const products = [
     id: 4,
     name: "Gold Tennis Bracelet",
     category: "Bracelets",
-    price: "From $1,799",
+    price: 1799,
+    formattedPrice: "From $1,799",
     rating: 4,
     reviews: 67,
     badge: "Limited",
@@ -61,7 +67,8 @@ const products = [
     id: 5,
     name: "Pearl & Diamond Earrings",
     category: "Earrings",
-    price: "From $749",
+    price: 749,
+    formattedPrice: "From $749",
     rating: 5,
     reviews: 83,
     badge: "New",
@@ -74,7 +81,8 @@ const products = [
     id: 6,
     name: "Vintage Ruby Ring",
     category: "Rings",
-    price: "From $3,199",
+    price: 3199,
+    formattedPrice: "From $3,199",
     rating: 5,
     reviews: 42,
     badge: "Exclusive",
@@ -92,10 +100,13 @@ const badgeColor: Record<string, string> = {
   Exclusive: "bg-[#1a1a3a] text-[#C9A84C] border border-[#C9A84C]/50",
 };
 
-function ProductCard({ product, visible }: { product: (typeof products)[0]; visible: boolean }) {
+function ProductCard({ product, visible }: { product: Product; visible: boolean }) {
   const [hovered, setHovered] = useState(false);
   const [imgIndex, setImgIndex] = useState(0);
   const [wishlisted, setWishlisted] = useState(false);
+  const [isAdded, setIsAdded] = useState(false);
+  
+  const { addToCart } = useCart();
 
   useEffect(() => {
     if (!hovered) {
@@ -108,6 +119,13 @@ function ProductCard({ product, visible }: { product: (typeof products)[0]; visi
     }, 1000);
     return () => clearInterval(t);
   }, [hovered, product.images.length]);
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    addToCart(product);
+    setIsAdded(true);
+    setTimeout(() => setIsAdded(false), 2000); // Reset visual feedback after 2s
+  };
 
   return (
     <div
@@ -150,11 +168,16 @@ function ProductCard({ product, visible }: { product: (typeof products)[0]; visi
         >
           {/* Add to Cart */}
           <button
-            className="w-full bg-[#C9A84C] text-black text-xs tracking-widest uppercase py-3 font-semibold flex items-center justify-center gap-2 hover:bg-[#E8C97E] transition-colors duration-300"
+            onClick={handleAddToCart}
+            className={`w-full text-xs tracking-widest uppercase py-3 font-semibold flex items-center justify-center gap-2 transition-colors duration-300 ${
+              isAdded 
+                ? "bg-green-700 text-white" 
+                : "bg-[#C9A84C] text-black hover:bg-[#E8C97E]"
+            }`}
             style={{ fontFamily: "'Montserrat', sans-serif", letterSpacing: "0.15em" }}
           >
-            <ShoppingBag size={14} />
-            Add to Cart
+            {isAdded ? <Check size={14} /> : <ShoppingBag size={14} />}
+            {isAdded ? "Added to Cart" : "Add to Cart"}
           </button>
 
           {/* Wishlist + Quick View */}
@@ -245,7 +268,7 @@ function ProductCard({ product, visible }: { product: (typeof products)[0]; visi
           className="text-foreground/80 dark:text-white/80"
           style={{ fontFamily: "'Cinzel', serif", fontSize: "0.9rem", fontWeight: 400 }}
         >
-          {product.price}
+          {product.formattedPrice}
         </p>
       </div>
     </div>
